@@ -71,13 +71,36 @@ def compute_percentiles(df, value_column, groupby_columns=None, result_column=No
     return df
 
 
-def merge_datasets(eurostat_df, ef_df):
-    ef_df = compute_percentiles(ef_df, 'score', ['year'], 'ef_percentile')
-    eurostat_df = compute_percentiles(eurostat_df, 'learning', ['year'], 'learning_percentile')
+def merge_datasets(eurostat_df, ef_df, lag_years=4):
+
+    ef_df = ef_df.copy()
+
+    # EF(t+4) aligned with ESL(t)
+    ef_df['year'] = ef_df['year'] - lag_years
+
+    ef_df = compute_percentiles(
+        ef_df,
+        'score',
+        ['year'],
+        'ef_percentile'
+    )
+
+    eurostat_df = compute_percentiles(
+        eurostat_df,
+        'learning',
+        ['year'],
+        'learning_percentile'
+    )
+
     merged = eurostat_df.merge(
         ef_df[['iso3', 'year', 'ef_percentile']],
         on=['iso3', 'year'],
         how='left'
     )
-    merged['gap_pct'] = merged['ef_percentile'] - merged['learning_percentile']
+
+    merged['gap_pct'] = (
+        merged['ef_percentile']
+        - merged['learning_percentile']
+    )
+
     return merged
