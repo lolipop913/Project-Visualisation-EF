@@ -8,7 +8,7 @@ The project combines preprocessing pipelines, exploratory analysis, publication-
 
 ## Dashboard preview
 
-![Dashboard preview](docs/dashboard_preview.png)
+![Dashboard preview](docs/EF Proficiency Dashboard.pdf)
 
 ---
 
@@ -83,6 +83,7 @@ Project Visualisation EF/
 │
 ├── README.md
 └── requirements.txt
+```
 
 ---
 
