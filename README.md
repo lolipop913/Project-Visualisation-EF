@@ -8,7 +8,10 @@ The project combines preprocessing pipelines, exploratory analysis, publication-
 
 ## Dashboard preview
 
-![Dashboard preview](docs/EF Proficiency Dashboard.pdf)
+![Dashboard preview](docs/dashboard_preview.jpg)
+
+Full dashboard export available in:
+[EF Proficiency Dashboard PDF](docs\EF Proficiency Dashboard.pdf)
 
 ---
 
@@ -134,7 +137,9 @@ pip install -r requirements.txt
 ## Launch the dashboard:
 
 cd dashboard
+
 streamlit run app.py
+
 Main findings
 
 ## Key exploratory patterns include:
