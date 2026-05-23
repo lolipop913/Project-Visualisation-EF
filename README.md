@@ -90,86 +90,111 @@ Project Visualisation EF/
 
 ---
 
-## Exploratory workflow
+## Exploratory Workflow
 
-- 01 — Data collection
-Import and initial inspection of raw datasets
-EF EPI rankings integration
-Dataset preparation
+### 01 — Data Collection
 
-- 02 — Preprocessing
-Harmonisation across datasets
-Percentile standardisation
-Temporal lag alignment
-Construction of gap_pct
+- import and initial inspection of raw datasets,
+- EF EPI rankings integration,
+- dataset preparation.
 
-- 03 — Exploration
-Data quality assessment
-Distribution analysis
-Temporal evolution
-Country comparisons
+### 02 — Preprocessing
 
-- 04 — Visualizations
-Publication-style visual storytelling
-Choropleth maps
-Comparative rankings
-Temporal trend visualizations
-Interactive dashboard
+- harmonisation across datasets,
+- percentile standardisation,
+- temporal lag alignment,
+- construction of `gap_pct`.
 
-## The Streamlit dashboard includes:
+### 03 — Exploration
+
+- data quality assessment,
+- distribution analysis,
+- temporal evolution,
+- country comparisons.
+
+### 04 — Visualizations
+
+- publication-style visual storytelling,
+- choropleth maps,
+- comparative rankings,
+- temporal trend visualizations,
+- interactive dashboard integration.
+
+---
+
+## Streamlit Dashboard Features
+
+The interactive dashboard includes:
 
 - interactive European choropleth maps,
 - temporal evolution visualizations,
 - country ranking comparisons,
 - Italy vs Europe trajectory analysis,
 - filtered dataset exploration.
-- Run locally
 
-## Clone the repository:
+---
 
-- git clone https://github.com/lolipop913/Project-Visualisation-EF.git
-- cd Project-Visualisation-EF
+## Run Locally
 
-## Create and activate a virtual environment:
+### Clone the Repository
 
+```bash
+git clone https://github.com/lolipop913/Project-Visualisation-EF.git
+cd Project-Visualisation-EF
+```
+
+### Create and Activate a Virtual Environment
+
+```bash
 python -m venv .venv
+```
 
-## Install dependencies:
+### Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
-## Launch the dashboard:
+### Launch the Dashboard
 
-- cd dashboard
+```bash
+cd dashboard
+streamlit run app.py
+```
 
-- streamlit run app.py
+---
 
-- Main findings
+## Main Findings
 
-## Key exploratory patterns include:
+Key exploratory patterns include:
 
-persistent spatial disparities across Europe,
-relatively stable average proficiency gaps over time,
-strong positive performance in Northern Europe,
-relative underperformance in several Southern European countries,
-weak alignment between educational exposure and observed proficiency outcomes alone.
+- persistent spatial disparities across Europe,
+- relatively stable average proficiency gaps over time,
+- strong positive performance in Northern Europe,
+- relative underperformance in several Southern European countries,
+- weak alignment between educational exposure and observed proficiency outcomes alone.
 
-## Technologies used
+---
 
-Python
-pandas
-Plotly
-Streamlit
-Jupyter Notebook
-Repository
+## Technologies Used
 
-## GitHub repository:
+- Python
+- pandas
+- Plotly
+- Streamlit
+- Jupyter Notebook
+
+---
+
+## GitHub Repository
 
 https://github.com/lolipop913/Project-Visualisation-EF
 
 Additional collaborative resources and project materials were maintained through a shared Google Drive workspace during development.
 
+---
+
 ## Author
 
-Henri Vasserot
+Henri Vasserot  
 MSc Data Science — University of Trento
