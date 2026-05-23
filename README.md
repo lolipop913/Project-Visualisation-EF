@@ -91,21 +91,25 @@ Project Visualisation EF/
 ---
 
 ## Exploratory workflow
-01 — Data collection
+
+- 01 — Data collection
 Import and initial inspection of raw datasets
 EF EPI rankings integration
 Dataset preparation
-02 — Preprocessing
+
+- 02 — Preprocessing
 Harmonisation across datasets
 Percentile standardisation
 Temporal lag alignment
 Construction of gap_pct
-03 — Exploration
+
+- 03 — Exploration
 Data quality assessment
 Distribution analysis
 Temporal evolution
 Country comparisons
-04 — Visualizations
+
+- 04 — Visualizations
 Publication-style visual storytelling
 Choropleth maps
 Comparative rankings
@@ -114,17 +118,17 @@ Interactive dashboard
 
 ## The Streamlit dashboard includes:
 
-interactive European choropleth maps,
-temporal evolution visualizations,
-country ranking comparisons,
-Italy vs Europe trajectory analysis,
-filtered dataset exploration.
-Run locally
+- interactive European choropleth maps,
+- temporal evolution visualizations,
+- country ranking comparisons,
+- Italy vs Europe trajectory analysis,
+- filtered dataset exploration.
+- Run locally
 
 ## Clone the repository:
 
-git clone https://github.com/lolipop913/Project-Visualisation-EF.git
-cd Project-Visualisation-EF
+- git clone https://github.com/lolipop913/Project-Visualisation-EF.git
+- cd Project-Visualisation-EF
 
 ## Create and activate a virtual environment:
 
@@ -136,11 +140,11 @@ pip install -r requirements.txt
 
 ## Launch the dashboard:
 
-cd dashboard
+- cd dashboard
 
-streamlit run app.py
+- streamlit run app.py
 
-Main findings
+- Main findings
 
 ## Key exploratory patterns include:
 
@@ -149,7 +153,9 @@ relatively stable average proficiency gaps over time,
 strong positive performance in Northern Europe,
 relative underperformance in several Southern European countries,
 weak alignment between educational exposure and observed proficiency outcomes alone.
-Technologies used
+
+## Technologies used
+
 Python
 pandas
 Plotly
