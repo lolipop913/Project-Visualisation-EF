@@ -1,5 +1,7 @@
+import pathlib
 import pandas as pd
 import pycountry
+import eurostat
 from .harmonization import harmonize_country_names, iso2_to_iso3
 
 
@@ -41,6 +43,30 @@ def load_ef_epi(path):
     df['iso3'] = df['iso2'].apply(iso2_to_iso3)
 
     return df.dropna(subset=['iso3', 'year', 'score'])
+
+
+def load_eurostat_data(code: str, flags: bool = False) -> pd.DataFrame:
+    """Load a Eurostat dataset by its code.
+
+    Keeps loading logic centralized so notebooks only orchestrate the pipeline.
+    """
+    return eurostat.get_data_df(code, flags=flags)
+
+
+def export_merged(df: pd.DataFrame, output_path: str | pathlib.Path | None = None, project_root: pathlib.Path | None = None) -> pathlib.Path:
+    """Export merged analytical DataFrame to `data/processed/merged_analytical.csv`.
+
+    Returns the written Path.
+    """
+    if project_root is None:
+        project_root = pathlib.Path().resolve().parent
+    if output_path is None:
+        output_path = project_root / 'data' / 'processed' / 'merged_analytical.csv'
+    output_path = pathlib.Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    merged_sorted = df.sort_values(['year', 'iso3']).reset_index(drop=True)
+    merged_sorted.to_csv(output_path, index=False)
+    return output_path
 
 
 def clean_eurostat(df):
