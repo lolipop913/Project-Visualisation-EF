@@ -60,7 +60,15 @@ def apply_standard_layout(fig, height=650):
 
 df = load_data()
 
+import pycountry
 
+def iso3_to_name(code):
+    try:
+        return pycountry.countries.get(alpha_3=code).name
+    except:
+        return code
+
+df["country"] = df["iso3"].apply(iso3_to_name)
 # ---------------------------------------------------------
 # Sidebar
 # ---------------------------------------------------------
@@ -77,6 +85,7 @@ selected_year = st.sidebar.selectbox(
     index=len(available_years) - 1
 )
 
+
 filtered_df = (
     df[df["year"] == selected_year]
     .dropna(subset=["gap_pct"])
@@ -87,7 +96,7 @@ filtered_df = (
 # Header
 # ---------------------------------------------------------
 
-st.title("European EF Proficiency Dashboard")
+st.title( "English Proficiency Across Europe: Interactive Dashboard")
 
 st.markdown(
     """
@@ -109,12 +118,25 @@ of the analytical framework.
 """
 )
 
-
 # ---------------------------------------------------------
 # KPI section
 # ---------------------------------------------------------
 
-col1, col2, col3 = st.columns(3)
+best_country = (
+    filtered_df.loc[
+        filtered_df["gap_pct"].idxmax(),
+        "country"
+    ]
+)
+
+worst_country = (
+    filtered_df.loc[
+        filtered_df["gap_pct"].idxmin(),
+        "country"
+    ]
+)
+
+col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(
     "Countries",
@@ -127,10 +149,14 @@ col2.metric(
 )
 
 col3.metric(
-    "Selected year",
-    int(selected_year)
+    "Best performer",
+    best_country
 )
 
+col4.metric(
+    "Lowest performer",
+    worst_country
+)
 
 # ---------------------------------------------------------
 # Choropleth
@@ -150,6 +176,8 @@ fig_map = px.choropleth(
     locations="iso3",
     color="gap_pct",
 
+    title="Relative English Proficiency Gap Across Europe",
+
     scope="europe",
     projection="natural earth",
 
@@ -161,7 +189,7 @@ fig_map = px.choropleth(
 
     range_color=[-1, 1],
 
-    hover_name="iso3",
+    hover_name="country",
 
     hover_data={
         "iso3": False,
@@ -177,8 +205,10 @@ fig_map = px.choropleth(
 
 fig_map.update_traces(
     hovertemplate=
-    "<b>%{location}</b><br>" +
+    "<b>%{hovertext}</b><br>" +
     "Gap: %{z:.2f}<br>" +
+    "Learning percentile: %{customdata[0]:.2f}<br>" +
+    "EF percentile: %{customdata[1]:.2f}<br>" +
     "<extra></extra>"
 )
 
@@ -205,7 +235,6 @@ st.plotly_chart(
     fig_map,
     use_container_width=True
 )
-
 
 # ---------------------------------------------------------
 # European temporal trend
@@ -276,7 +305,7 @@ relative EF proficiency gaps across Europe.
 )
 
 country_gap = (
-    filtered_df.groupby("iso3", as_index=False)["gap_pct"]
+    filtered_df.groupby("country", as_index=False)["gap_pct"]
     .mean()
     .dropna()
     .sort_values("gap_pct")
@@ -291,7 +320,7 @@ fig_bar = px.bar(
     extremes,
 
     x="gap_pct",
-    y="iso3",
+    y="country",
 
     orientation="h",
 
@@ -309,7 +338,7 @@ fig_bar = px.bar(
 
     labels={
         "gap_pct": "Relative proficiency gap",
-        "iso3": "Country"
+        "country": "Country"
     }
 )
 
@@ -406,6 +435,18 @@ st.plotly_chart(
 
 
 st.divider()
+
+st.info(
+    """
+Relative proficiency gap = EF percentile − Learning percentile.
+
+Positive values indicate countries whose observed English proficiency exceeds expected levels based on educational exposure indicators.
+
+Negative values indicate relative underperformance.
+
+The dashboard is exploratory and should not be interpreted as evidence of causal relationships.
+"""
+)
 
 st.markdown(
     """
